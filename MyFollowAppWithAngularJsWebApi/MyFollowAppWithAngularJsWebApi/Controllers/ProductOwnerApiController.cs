@@ -27,18 +27,18 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
              manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDb)); 
          }
 
-        //[Route("{id:int}")]
+        [Route("{id:int}")]
         public void Get(int id)
         {
-            ProductOwnerRequest p = db.ProductOwnerRequest.Find(id);
+            ProductOwnerRequest productOwnerRequest = db.ProductOwnerRequest.Find(id);
             //Id = id;
-            if (p == null)
+            if (productOwnerRequest == null)
             {
-                HttpContext.Current.Response.Redirect("https://localhost:44364/ProductOwnerRequest/ExpireMessage/");
+                HttpContext.Current.Response.Redirect("/ProductOwnerRequest/ExpireMessage/");
             }
             else
             {
-                HttpContext.Current.Response.Redirect("https://localhost:44364/ProductOwner/Create/" + id);
+                HttpContext.Current.Response.Redirect("/ProductOwner/Create/" + id);
             }
         }
        

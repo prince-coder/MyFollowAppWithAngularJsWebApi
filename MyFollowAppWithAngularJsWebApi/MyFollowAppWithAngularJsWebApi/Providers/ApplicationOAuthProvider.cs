@@ -32,16 +32,16 @@ namespace MyFollowAppWithAngularJsWebApi.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
             //var role = await userManager.GetRolesAsync(user.Id);
-            
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
-                return;
+                
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    return;
+                
             }
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
@@ -53,8 +53,7 @@ namespace MyFollowAppWithAngularJsWebApi.Providers
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
-            var userIdentity = Thread.CurrentPrincipal.Identity;
-            
+            var userIdentity = Thread.CurrentPrincipal.Identity;            
             //HttpContext.Current.User = <>  user.Id;
         }
 

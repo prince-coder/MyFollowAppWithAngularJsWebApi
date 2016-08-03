@@ -27,7 +27,7 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
         {
             string Message, fileName;
             Message = fileName = string.Empty;
-            bool flag = false;
+            bool IsFileUploaded = false;
 
             if (Request.Files != null)
             {
@@ -37,9 +37,9 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
                 try
                 {
 
-                    file.SaveAs(Path.Combine(ConfigurationManager.AppSettings["imagePath"], fileName));
+                    file.SaveAs(Path.Combine("/Images/", fileName));
                     Message = "File uploaded";
-                    flag = true;
+                    IsFileUploaded = true;
                     
                     MediaDetails mediaDetails = new MediaDetails();
                     mediaDetails.ProductId = id;
@@ -47,6 +47,7 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
                     db.MediaDetails.Add(mediaDetails);
                     db.SaveChanges();
                     //return Ok();
+                    
                 }
 
                 catch (Exception)
@@ -58,7 +59,7 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
                 //var file = Request.Files[0];
 
             }
-            return new JsonResult { Data = new { fileName = fileName, Message = Message, Status = flag } };
+            return new JsonResult { Data = new { fileName = fileName, Message = Message, Status = IsFileUploaded } };
         }
     }
 }

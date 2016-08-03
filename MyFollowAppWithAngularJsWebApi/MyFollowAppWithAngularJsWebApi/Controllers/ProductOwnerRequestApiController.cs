@@ -20,10 +20,13 @@ using System.Web.Security;
 
 namespace MyFollowAppWithAngularJsWebApi.Controllers
 {
+    [Authorize(Roles ="Admin")]
+    [RoutePrefix("api/ProductOwnerRequestApi")]
     public class ProductOwnerRequestApiController : ApiController
     {
       
         private MyFollowAppContext db = new MyFollowAppContext();
+        [Route("Create")]
         public HttpResponseMessage Post(ProductOwnerRequest productOwnerRequest)
         {
             if (ModelState.IsValid)
@@ -41,7 +44,7 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
             }
 
         }
-        
+        [Route("")]
         [HttpGet]
         public IEnumerable<ProductOwnerRequest> Get()
        {
@@ -49,6 +52,7 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
             return db.ProductOwnerRequest.AsEnumerable();
 
         }
+        [Route("{id:int}")]
         public ProductOwnerRequest Get(int id)
         {
             ProductOwnerRequest productOwnerRequest = db.ProductOwnerRequest.Find(id);
@@ -61,6 +65,7 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
 
             return productOwnerRequest;
         }
+         [Route("Delete")]
         public IHttpActionResult Delete(int id)
         {
             ProductOwnerRequest productOwnerRequest = db.ProductOwnerRequest.Find(id);
@@ -87,7 +92,6 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
                 SmtpSection secObj = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
                 MailMessage mail = new MailMessage();
                 mail.To.Add(mailTo);
-                
                 mail.Subject = "Registration Request Accepted";
                 string URL = string.Format(ConfigurationManager.AppSettings["mailURL"]+"{0}", id);
                 mail.Body = PopulateBody(name, URL);
@@ -115,7 +119,9 @@ namespace MyFollowAppWithAngularJsWebApi.Controllers
         private string PopulateBody(string user,string url)
         {
             string body = string.Empty;
-            using (StreamReader reader = new StreamReader(ConfigurationManager.AppSettings["TemplateURL"]))
+            //Path.
+            var path = HttpContext.Current.Server.MapPath("~/Html/EmailTemplate.html");
+            using (StreamReader reader = new StreamReader(path))
             {
                 body = reader.ReadToEnd();
             }

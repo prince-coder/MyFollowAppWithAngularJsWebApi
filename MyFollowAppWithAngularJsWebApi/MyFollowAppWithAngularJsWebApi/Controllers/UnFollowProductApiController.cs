@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace MyFollowAppWithAngularJsWebApi.Controllers
 {
+    [Authorize(Roles ="End User")]
     [RoutePrefix("api/UnFollowProductApi")]
     public class UnFollowProductApiController : ApiController
     {

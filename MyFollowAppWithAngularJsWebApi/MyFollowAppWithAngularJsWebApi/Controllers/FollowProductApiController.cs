@@ -11,6 +11,7 @@ using System.Data.Entity;
 
 namespace MyFollowAppWithAngularJsWebApi.Controllers
 {
+    [Authorize(Roles = "End User")]
     [RoutePrefix("api/FollowProductApi")]
     public class FollowProductApiController : ApiController
     {
