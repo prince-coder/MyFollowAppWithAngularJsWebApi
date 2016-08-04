@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MyFollowAppWithAngularJsWebApi.Models.ProductOwnerRequest>
+@{
+    ViewBag.Title = "ProductOwnerRequest";
+}
+
+<h2>ProductOwnerRequest</h2>
+
+<table class="table">
+
+    <tr>
+        <th>
+            Name:
+        </th>
+        <th>
+            Company Name:
+        </th>
+
+        <th>
+            Email:
+        </th>
+
+    </tr>
+   
+        
+            @foreach (var item in TempData["ProductOwnerRequest"] as IEnumerable<MyFollowAppWithAngularJsWebApi.Models.ProductOwnerRequest>)
+            {
+
+                <tr>
+                    <td> item.Name  </td>
+                    <td> item.CompanyName  </td>
+                    <td> item.Email  </td>
+
+                </tr>
+            }
+
+</table>
