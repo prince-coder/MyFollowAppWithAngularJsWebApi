@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+<body>
+    <div ng-app="MyApp" ng-controller="MediaDetailsController">
+        
+        <input type="hidden" ng-init="$scope.ProductId=@ViewBag.ProductId" ng-model="MediaDetails.ProductId" />
+        <div ng-show="MediaDetails.ViewImage">
+        <table style="background-color:#FFFFFF; border: solid 2px #6D7B8D; padding:6px;table-layout:fixed;overflow: auto;
+display: inline-block; width:830px;height:520px" cellpadding="2" cellspacing="2">
+            <tr>
+                <td align="center">
+
+
+                    @*<table style=" background-color:#FFFFFF; border: solid 2px #6D7B8D; width:800;" cellpadding="2" cellspacing="2" align="center">
+
+                    <tr>
+
+
+                        <td align="center">*@
+                    @*<img ng-repeat="thumbImage in Images" class="slide" src="~/Images/{{ Image_Path }" width="800" height="500px">*@
+                    <div ng-show="ShowImage">
+                        <img src="~/Images/{{AnimationImageName}}" alt="{{AnimationImageName}}" width="800" height="500px">
+                    </div>
+                    @*</td>
+                        </tr>
+                    </table>*@
+                </td>
+            </tr>
+        </table> 
+        <table style="background-color:#FFFFFF; border:solid 2px #6D7B8D; padding :5px;width:99%;table-layout:fixed;overflow: auto;
+               display: inline-block;" cellpadding="2" cellspacing="2">
+
+            <tr>
+
+                <td data-ng-repeat="thumbImage in MediaDetails.Media" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+                    <img src="~/Images/{{ thumbImage.Media }}" alt="{{thumbImage.Media}}" width="160px" height="120px"
+                         ng-click="onShowImage(thumbImage.Media)">
+                    <br />
+                    
+                </td>
+            </tr>
+        </table>
+            </div>
+    </div>
+</body>
+</html>
