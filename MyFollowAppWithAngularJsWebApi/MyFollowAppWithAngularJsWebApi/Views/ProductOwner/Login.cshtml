@@ -1,0 +1,51 @@
+﻿
+
+@{
+    ViewBag.Title = "ProductOwner | Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ProductOwner Login</h2>
+<div ng-app="MyApp" ng-controller="LoginController" class="row">
+    <div class="col-md-8">
+        <strong class="error">{{error}}</strong>
+        @Html.AntiForgeryToken()
+        <form name="LoginData">
+            <div class="form-group">
+                <label class="col-md-2 control-label">User Name:</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-model="ProductOwner.Email" required />
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="col-md-2 control-label">Password:</label>
+                <div class="col-md-10">
+                    <input type="password" class="form-control" ng-model="ProductOwner.Password" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Password:</label>
+                <div class="col-md-10">
+                    <input type="password" class="form-control" ng-model="ProductOwner.Password" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Password:</label>
+                <div class="col-md-10">
+                    New User? <a href="/ProductOwnerRequest/Create">Request For Registration</a>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Login" class="btn btn-default" ng-disabled="!LoginData.$valid" ng-click="Login()" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+  
+
+</div>
+
